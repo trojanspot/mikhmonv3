@@ -44,24 +44,22 @@ include('../lang/'.$langid.'.php');
   if ($load == "sysresource") {
 
     $API->connect($iphost, $userhost, decrypt($passwdhost));
-
+	
 // get MikroTik system clock
     $getclock = $API->comm("/system/clock/print");
     $clock = $getclock[0];
     $timezone = $getclock[0]['time-zone-name'];
     date_default_timezone_set($timezone);
-
 // get system resource MikroTik
     $getresource = $API->comm("/system/resource/print");
     $resource = $getresource[0];
-
 // get routeboard info
     $getrouterboard = $API->comm("/system/routerboard/print");
     $routerboard = $getrouterboard[0];
     ?>
     
     <div id="r_1" class="row">
-      <div class="col-4">
+      <div class="col-6">
         <div class="box bmh-75 box-bordered">
           <div class="box-group">
             <div class="box-group-icon"><i class="fa fa-calendar"></i></div>
@@ -76,7 +74,7 @@ include('../lang/'.$langid.'.php');
             </div>
           </div>
         </div>
-      <div class="col-4">
+      <div class="col-6">
         <div class="box bmh-75 box-bordered">
           <div class="box-group">
           <div class="box-group-icon"><i class="fa fa-info-circle"></i></div>
@@ -92,7 +90,24 @@ include('../lang/'.$langid.'.php');
             </div>
           </div>
         </div>
-    <div class="col-4">
+      </div>
+
+<?php 
+} else if ($load == "health") {
+
+    $API->connect($iphost, $userhost, decrypt($passwdhost));
+
+// get system resource MikroTik
+    $getresource = $API->comm("/system/resource/print");
+    $resource = $getresource[0];
+
+// get system health MikroTik
+  $gethealth = $API->comm("/system/health/print");
+  $health = $gethealth[0];
+    ?>
+    
+    <div id="r_5" class="row">
+    <div class="col-6">
       <div class="box bmh-75 box-bordered">
         <div class="box-group">
           <div class="box-group-icon"><i class="fa fa-server"></i></div>
@@ -102,6 +117,21 @@ include('../lang/'.$langid.'.php');
                     echo $_cpu_load." : " . $resource['cpu-load'] . "%<br/>
                     ".$_free_memory." : " . formatBytes($resource['free-memory'], 2) . "<br/>
                     ".$_free_hdd." : " . formatBytes($resource['free-hdd-space'], 2)
+                    ?>
+                </span>
+                </div>
+              </div>
+            </div>
+          </div> 
+    <div class="col-6">
+      <div class="box bmh-75 box-bordered">
+        <div class="box-group">
+          <div class="box-group-icon"><i class="fa fa-server"></i></div>
+              <div class="box-group-area">
+                <span >
+                    <?php
+                    echo $_voltage." : " . $health['voltage'] . " V<br/>
+                    ".$_temperature." : " . $health['temperature'] . "&deg; C"
                     ?>
                 </span>
                 </div>
