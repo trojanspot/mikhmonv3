@@ -517,6 +517,7 @@ if ($hotspot == "dashboard" || substr(end(explode("/", $url)), 0, 8) == "?sessio
     $("#r_1").load("./dashboard/aload.php?session=' . $session . '&load=sysresource #r_1"); 
     $("#r_2").load("./dashboard/aload.php?session=' . $session . '&load=hotspot #r_2"); 
     $("#r_3").load("./dashboard/aload.php?session=' . $session . '&load=logs #r_3"); 
+    $("#r_5").load("./dashboard/aload.php?session=' . $session . '&load=health #r_5"); 
     
   }, interval1);
 
